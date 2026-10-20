@@ -1,0 +1,38 @@
+name: Push Images to GHCR
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync Images to My Registry
+        run: |
+          REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          
+          # 1. Handle SearxNG
+          docker pull searxng/searxng:latest
+          docker tag searxng/searxng:latest ghcr.io/$REPO_OWNER/searxng-mcp:latest
+          docker push ghcr.io/$REPO_OWNER/searxng-mcp:latest
+
+          # 2. Handle OneSearch
+          docker pull isokoliuk/mcp-searxng:latest
+          docker tag isokoliuk/mcp-searxng:latest ghcr.io/$REPO_OWNER/onesearch:latest
+          docker push ghcr.io/$REPO_OWNER/onesearch:latest
+
+          # 3. Handle Python Tester
+          docker pull python:3.11
+          docker tag python:3.11 ghcr.io/$REPO_OWNER/python-tester:3.11
+          docker push ghcr.io/$REPO_OWNER/python-tester:3.11
