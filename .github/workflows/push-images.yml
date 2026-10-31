@@ -28,8 +28,8 @@ jobs:
           docker push ghcr.io/$REPO_OWNER/searxng-mcp:latest
 
           # 2. Handle MCP SearXNG Bridge (Renamed Destination Tag)
-          docker pull isokolluk/mcp-searxng:latest
-          docker tag isokolluk/mcp-searxng:latest ghcr.io/$REPO_OWNER/mcp-searxng:latest
+          docker pull isokoliuk/mcp-searxng:latest
+          docker tag isokoliuk/mcp-searxng:latest ghcr.io/$REPO_OWNER/mcp-searxng:latest
           docker push ghcr.io/$REPO_OWNER/mcp-searxng:latest
 
           # 3. Handle Python Tester
