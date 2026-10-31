@@ -24,8 +24,8 @@ jobs:
           
           # 1. Handle SearxNG
           docker pull searxng/searxng:latest
-          docker tag searxng/searxng:latest ghcr.io/$REPO_OWNER/searxng-mcp:latest
-          docker push ghcr.io/$REPO_OWNER/searxng-mcp:latest
+          docker tag searxng/searxng:latest ghcr.io/$REPO_OWNER/searxng-engine:latest
+          docker push ghcr.io/$REPO_OWNER/searxng-engine:latest
 
           # 2. Handle MCP SearXNG Bridge (Renamed Destination Tag)
           docker pull isokoliuk/mcp-searxng:latest
