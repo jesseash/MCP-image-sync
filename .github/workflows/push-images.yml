@@ -43,6 +43,6 @@ jobs:
           docker push ghcr.io/$REPO_OWNER/redis:7-alpine
 
           # 5. Handle Firecrawl Core (New)
-          docker pull mendelevial/firecrawl-core:latest
-          docker tag mendelevial/firecrawl-core:latest ghcr.io/$REPO_OWNER/firecrawl-core:latest
+          docker pull mendable/firecrawl-core:latest
+          docker tag mendable/firecrawl-core:latest ghcr.io/$REPO_OWNER/firecrawl-core:latest
           docker push ghcr.io/$REPO_OWNER/firecrawl-core:latest
