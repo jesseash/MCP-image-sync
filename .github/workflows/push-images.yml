@@ -27,10 +27,10 @@ jobs:
           docker tag searxng/searxng:latest ghcr.io/$REPO_OWNER/searxng-mcp:latest
           docker push ghcr.io/$REPO_OWNER/searxng-mcp:latest
 
-          # 2. Handle OneSearch
-          docker pull isokoliuk/mcp-searxng:latest
-          docker tag isokoliuk/mcp-searxng:latest ghcr.io/$REPO_OWNER/onesearch:latest
-          docker push ghcr.io/$REPO_OWNER/onesearch:latest
+          # 2. Handle MCP SearXNG Bridge (Renamed Destination Tag)
+          docker pull isokolluk/mcp-searxng:latest
+          docker tag isokolluk/mcp-searxng:latest ghcr.io/$REPO_OWNER/mcp-searxng:latest
+          docker push ghcr.io/$REPO_OWNER/mcp-searxng:latest
 
           # 3. Handle Python Tester
           docker pull python:3.11
