@@ -48,6 +48,6 @@ jobs:
           docker push ghcr.io/$REPO_OWNER/firecrawl-core:latest
 
           # 6. Handle Real OneSearch Core Engine (New Addition)
-          docker pull yokingma/one-search-mcp:latest
-          docker tag yokingma/one-search-mcp:latest ghcr.io/$REPO_OWNER/onesearch-mcp:latest
+          docker pull ghcr.io/yokingma/one-search-mcp:latest
+          docker tag ghcr.io/yokingma/one-search-mcp:latest ghcr.io/$REPO_OWNER/onesearch-mcp:latest
           docker push ghcr.io/$REPO_OWNER/onesearch-mcp:latest
