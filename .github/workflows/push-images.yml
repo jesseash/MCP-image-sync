@@ -12,7 +12,7 @@ jobs:
       packages: write
     steps:
       - name: Log in to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -48,7 +48,7 @@ jobs:
           docker push ghcr.io/$REPO_OWNER/firecrawl-core:latest
 
           # 6. Handle Real OneSearch Core Engine (New Addition)
-          docker pull ghcr.io/yokingma/one-search-mcp:latest
+         
           docker build -t ghcr.io/$REPO_OWNER/onesearch:latest .
          
           docker tag ghcr.io/yokingma/one-search-mcp:latest ghcr.io/$REPO_OWNER/onesearch:latest
