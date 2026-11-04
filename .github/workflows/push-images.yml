@@ -49,5 +49,12 @@ jobs:
 
           # 6. Handle Real OneSearch Core Engine (New Addition)
           docker pull ghcr.io/yokingma/one-search-mcp:latest
+          # Create a dynamic custom container image from the base layer and install mcp-proxy
+          cat <<EOF > Dockerfile
+          FROM ghcr.io/yokingma/one-search-mcp:latest
+          USER root
+          RUN npm install -g mcp-proxy && npm cache clean --force
+          ENTRYPOINT ["mcp-proxy", "--port", "3000", "--", "one-search-mcp"]
+          EOF
           docker tag ghcr.io/yokingma/one-search-mcp:latest ghcr.io/$REPO_OWNER/onesearch:latest
           docker push ghcr.io/$REPO_OWNER/onesearch:latest
