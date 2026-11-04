@@ -11,9 +11,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Checkout Repository Code
-        uses: actions/checkout@v4
-      
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -50,8 +47,17 @@ jobs:
           docker tag mcp/firecrawl:latest ghcr.io/$REPO_OWNER/firecrawl-core:latest
           docker push ghcr.io/$REPO_OWNER/firecrawl-core:latest
 
-          # 6. Handle Real OneSearch Core Engine (New Addition)
-          docker build --no-cache -t ghcr.io/$REPO_OWNER/onesearch:latest -f $(find . -name Dockerfile | head -n 1) .
-         
-          docker tag ghcr.io/yokingma/one-search-mcp:latest ghcr.io/$REPO_OWNER/onesearch:latest
+           6. FIXED: Inlined Dockerfile Generation & Execution Block
+          # ==============================================================================
+          echo "=== Generating Inline Dockerfile ==="
+          # Single quotes around 'EOF' ensure characters like brackets aren't stripped by bash
+          cat << 'EOF' > Dockerfile
+          FROM ghcr.io/yokingma/one-search-mcp:1.2.4
+          USER root
+          RUN npm install -g mcp-proxy && npm cache clean --force
+          ENTRYPOINT ["mcp-proxy", "--port", "3000", "--", "one-search-mcp"]
+          EOF
+
+          echo "=== Compiling Custom Proxy Layers ==="
+          docker build -t ghcr.io/$REPO_OWNER/onesearch:latest .
           docker push ghcr.io/$REPO_OWNER/onesearch:latest
