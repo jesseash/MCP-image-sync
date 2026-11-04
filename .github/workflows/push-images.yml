@@ -19,6 +19,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sync Images to My Registry
+        working-directory: MCP-image-sync 
         run: |
           REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           
