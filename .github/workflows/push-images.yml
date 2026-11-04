@@ -19,7 +19,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sync Images to My Registry
-        working-directory: MCP-image-sync 
         run: |
           REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           
@@ -49,8 +48,7 @@ jobs:
           docker push ghcr.io/$REPO_OWNER/firecrawl-core:latest
 
           # 6. Handle Real OneSearch Core Engine (New Addition)
-         
-          docker build -t ghcr.io/$REPO_OWNER/onesearch:latest .
+          docker build -t ghcr.io/$REPO_OWNER/onesearch:latest ./MCP-image-sync
          
           docker tag ghcr.io/yokingma/one-search-mcp:latest ghcr.io/$REPO_OWNER/onesearch:latest
           docker push ghcr.io/$REPO_OWNER/onesearch:latest
